@@ -1,0 +1,46 @@
+﻿{Script para criar DataPool do relatório de Saidas
+ Módulo: Fiscal3c
+ Autor: Rafael Colla
+ Data: 18/10/2018}
+ 
+var
+  RelSaidaDPPerDe,    RelSaidaDPPerAte,   RelSaidaDPEstabEmp,
+  RelSaidaDPSelecao,  RelSaidaDPOrdem,    RelSaidaDPFolIni,
+  RelSaidaDPFolMax,   RelSaidaDPObserv,   RelSaidaDPMapas,
+  RelSaidaDPMensal,   RelSaidaDPICMSST,   RelSaidaDPDetAliq,  
+  RelSaidaDPInfClie,  RelSaidaDPObsNota,  RelSaidaDPDtEmis,   
+  RelSaidaDPAbert,    RelSaidaDPEncer,    RelSaidaDPAtualiza, 
+  RelSaidaDPFiltPess, RelSaidaDPFiltOper, RelSaidaDPFiltEsp,  
+  RelSaidaDPFiltTrib, RelSaidaDPFiltMerc, RelSaidaDPFiltServ, 
+  RelSaidaDPFiltCfgC, RelSaidaDPFiltNCM,  RelSaidaDPDocCan   : OleVariant;
+ 
+procedure LeDataPoolRelSaidas(nomeDriver:string);
+begin
+  RelSaidaDPPerDe    := DDT.DriverByName(nomeDriver).Value('PERIODODE');
+  RelSaidaDPPerAte   := DDT.DriverByName(nomeDriver).Value('PERIODOATE');
+  RelSaidaDPEstabEmp := DDT.DriverByName(nomeDriver).Value('ESTABOUEMP');
+  RelSaidaDPSelecao  := DDT.DriverByName(nomeDriver).Value('SELECAO');
+  RelSaidaDPOrdem    := DDT.DriverByName(nomeDriver).Value('ORDEM');  
+  RelSaidaDPFolIni   := DDT.DriverByName(nomeDriver).Value('FOLHAINI');
+  RelSaidaDPFolMax   := DDT.DriverByName(nomeDriver).Value('FOLHAMAX');
+  RelSaidaDPObserv   := DDT.DriverByName(nomeDriver).Value('OBSERVACOES');
+  RelSaidaDPMapas    := DDT.DriverByName(nomeDriver).Value('MAPAS');
+  RelSaidaDPMensal   := DDT.DriverByName(nomeDriver).Value('MENSAL');
+  RelSaidaDPICMSST   := DDT.DriverByName(nomeDriver).Value('ICMSST');
+  RelSaidaDPDetAliq  := DDT.DriverByName(nomeDriver).Value('DETALIQ');
+  RelSaidaDPInfClie  := DDT.DriverByName(nomeDriver).Value('INFCLIENTE');	
+  RelSaidaDPObsNota  := DDT.DriverByName(nomeDriver).Value('OBSNOTA');	
+  RelSaidaDPDtEmis   := DDT.DriverByName(nomeDriver).Value('DATAEMISSAO');
+  RelSaidaDPAbert    := DDT.DriverByName(nomeDriver).Value('ABERTURA');
+  RelSaidaDPEncer    := DDT.DriverByName(nomeDriver).Value('ENCERRAMENTO');
+  RelSaidaDPAtualiza := DDT.DriverByName(nomeDriver).Value('ATUALIZAR');	
+	RelSaidaDPFiltPess := DDT.DriverByName(nomeDriver).Value('IDPESS');
+	RelSaidaDPFiltOper := DDT.DriverByName(nomeDriver).Value('IDOPER');
+	RelSaidaDPFiltEsp  := DDT.DriverByName(nomeDriver).Value('ESPECIE');
+	RelSaidaDPFiltTrib := DDT.DriverByName(nomeDriver).Value('IDTRIB');
+	RelSaidaDPFiltMerc := DDT.DriverByName(nomeDriver).Value('IDMERC');
+	RelSaidaDPFiltServ := DDT.DriverByName(nomeDriver).Value('IDSERV');
+	RelSaidaDPFiltCfgC := DDT.DriverByName(nomeDriver).Value('CFGCTAS');
+	RelSaidaDPFiltNCM  := DDT.DriverByName(nomeDriver).Value('NCM');
+  RelSaidaDPDocCan   := DDT.DriverByName(nomeDriver).Value('DOCCAN');
+end;

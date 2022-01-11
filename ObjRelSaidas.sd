@@ -1,0 +1,95 @@
+﻿{Script para mapear a tela do relatório de Saidas
+ Módulo: Fiscal3c
+ Autor: Rafael Colla
+ Data: 18/10/2018}
+ 
+var RelSaidaForm,
+    RelSaidaBtnSair,
+    RelSaidaBtnExcel,
+  
+    RelSaidaEbFonte,
+  
+    RelSaidaSelEstab,
+  
+    RelSaidaEbDtIni,
+    RelSaidaEbDtFim,
+  
+    RelSaidaCxPage,
+  
+    RelSaidaEbOrdem,
+    RelSaidaEbFolIni,
+    RelSaidaEbFolMax,
+  
+    RelSaidaChkObserv,
+    RelSaidaChkMapas,
+    RelSaidaChkMensal,
+    RelSaidaChkICMSST,
+    RelSaidaChkDetAliq,
+    RelSaidaChkInfClie,
+    RelSaidaChkObsNota,
+    RelSaidaChkDtEmis,
+    RelSaidaChkDocCan,
+  
+    RelSaidaChkAbert,
+    RelSaidaChkEncer,
+
+    RelSaidaChkAtualiza,
+ 
+    RelSaidaEbFiltPess,
+    RelSaidaEbFiltOper,
+    RelSaidaEbFiltEsp,
+    RelSaidaEbFiltTrib,
+    RelSaidaEbFiltMerc,
+    RelSaidaEbFiltServ,
+    RelSaidaEbFiltCfgC,
+    RelSaidaEbFiltNCM,
+    
+    RelSaidaGrid
+    :OleVariant;
+
+procedure DefineApelidosRelSaidas();
+begin 
+  RelSaidaForm     := Aliases.Fiscal3c.FRelDocSaidas;
+  RelSaidaBtnSair  := Aliases.Fiscal3c.FRelDocSaidas.BSair;
+  RelSaidaBtnExcel := Aliases.Fiscal3c.FRelDocSaidas.tbbExcel;
+  
+  RelSaidaEbFonte  := Aliases.Fiscal3c.FRelDocSaidas.Dock971.EB_Fonte;
+  
+  RelSaidaSelEstab := Aliases.Fiscal3c.FRelDocSaidas.weRel;     
+  
+  RelSaidaEbDtIni := Aliases.Fiscal3c.FRelDocSaidas.gbPeriodo.dIni;
+  RelSaidaEbDtFim := Aliases.Fiscal3c.FRelDocSaidas.gbPeriodo.dFin; 
+  
+  RelSaidaCxPage    := Aliases.Fiscal3c.FRelDocSaidas.cxPage;
+  
+  RelSaidaEbOrdem  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbLivro.edOrdem;  
+  RelSaidaEbFolIni := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbLivro.edFolhaIni;
+  RelSaidaEbFolMax := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbLivro.edFolhaMax; 
+  
+  RelSaidaChkObserv  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbImpObservacoes;
+  RelSaidaChkMapas   := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbMapas;
+  RelSaidaChkMensal  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbImpMensal;
+  RelSaidaChkICMSST  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbIcmsSt;
+  RelSaidaChkDetAliq := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbDetAliq;
+  RelSaidaChkInfClie := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbInfCli;
+  RelSaidaChkObsNota := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbObs;
+  RelSaidaChkDtEmis  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbDataEmissao;
+  RelSaidaChkDocCan  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbOutros.cbImpDocCancDeneInu;
+  
+  RelSaidaChkAbert := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbTermos.cbAbertura;
+  RelSaidaChkEncer := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbTermos.cbEncerramento;
+
+  RelSaidaChkAtualiza := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbAtualizar.cbAtualizar;
+ 
+  RelSaidaEbFiltPess := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILIDPESS;
+  RelSaidaEbFiltOper := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILIDOPER;
+  RelSaidaEbFiltEsp  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILESPECIE;
+  RelSaidaEbFiltTrib := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILIDTRIB;
+  RelSaidaEbFiltMerc := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILIDMERC;
+  RelSaidaEbFiltServ := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILIDSERV;
+  RelSaidaEbFiltCfgC := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_FILCFGCTAS;
+  RelSaidaEbFiltNCM  := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsFiltros.gbFiltros.EB_NCM;
+  
+  RelSaidaGrid := Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsDados.cxGridDados;
+end;
+

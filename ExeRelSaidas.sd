@@ -1,0 +1,119 @@
+﻿{Script para executar o relatório de Saidas
+ Módulo: Fiscal3c
+ Autor: Rafael Colla
+ Data: 18/10/2018}
+ 
+uses
+  ObjRelSaidas, DataPoolRelSaidas, CommonsAll;  
+
+var
+  Fiscal3c, driverDataRelSaida: OleVariant;
+  
+procedure AcessaRelSaidas();
+begin
+  Fiscal3c := Sys.Process('Fiscal3c');
+  Fiscal3c.VCLObject('VsMenu').Window('TdxDockControl', '', 1).ClickItem('Menu|Relatórios|Livros Fiscais|Saídas');
+  Delay(1000);
+end;  
+
+procedure PreencheInfomacoesSaida();
+begin
+  preencheDatas(RelSaidaEbDtIni, RelSaidaDPPerDe);
+
+  preencheDatas(RelSaidaEbDtFim, RelSaidaDPPerAte); 
+
+  VerificaInsere(RelSaidaEbOrdem, RelSaidaDPOrdem);
+  
+  VerificaInsere(RelSaidaEbFolIni, RelSaidaDPFolIni);
+  
+  VerificaInsere(RelSaidaEbFolMax, RelSaidaDPFolMax);
+  
+  PreencheCheckbox(RelSaidaChkObserv, RelSaidaDPObserv);
+  
+  PreencheCheckbox(RelSaidaChkMensal, RelSaidaDPMensal);
+  
+  PreencheCheckbox(RelSaidaChkICMSST, RelSaidaDPICMSST);
+  
+  PreencheCheckbox(RelSaidaChkDetAliq, RelSaidaDPDetAliq);
+  
+  PreencheCheckbox(RelSaidaChkInfClie, RelSaidaDPInfClie);
+  
+  PreencheCheckbox(RelSaidaChkObsNota, RelSaidaDPObsNota);
+  
+  PreencheCheckbox(RelSaidaChkDtEmis, RelSaidaDPDtEmis);
+  
+  PreencheCheckbox(RelSaidaChkDocCan, RelSaidaDPDocCan);
+  
+  PreencheCheckbox(RelSaidaChkAbert, RelSaidaDPAbert);        
+  
+  PreencheCheckbox(RelSaidaChkEncer, RelSaidaDPEncer);
+  
+  PreencheCheckbox(RelSaidaChkAtualiza, RelSaidaDPAtualiza);
+  RelSaidaEbFiltPess.Clear();
+  VerificaInsere(RelSaidaEbFiltPess, RelSaidaDPFiltPess);
+  
+  RelSaidaEbFiltOper.Clear();
+  VerificaInsere(RelSaidaEbFiltOper, RelSaidaDPFiltOper);  
+  
+  RelSaidaEbFiltEsp.Clear();
+  VerificaInsere(RelSaidaEbFiltEsp, RelSaidaDPFiltEsp);
+  
+  RelSaidaEbFiltTrib.Clear();
+  VerificaInsere(RelSaidaEbFiltTrib, RelSaidaDPFiltTrib); 
+  
+  RelSaidaEbFiltMerc.Clear();
+  VerificaInsere(RelSaidaEbFiltMerc, RelSaidaDPFiltMerc);                 
+  
+  RelSaidaEbFiltServ.Clear();
+  VerificaInsere(RelSaidaEbFiltServ, RelSaidaDPFiltServ);
+  
+  RelSaidaEbFiltCfgC.Clear();
+  VerificaInsere(RelSaidaEbFiltCfgC, RelSaidaDPFiltCfgC);
+  
+  RelSaidaEbFiltNCM.Clear();
+  VerificaInsere(RelSaidaEbFiltNCM, RelSaidaDPFiltNCM);  
+
+end;
+
+
+procedure ExecutaRelSaidas(pathData, tab:string);
+begin
+  AcessaRelSaidas();
+  
+  DefineApelidosRelSaidas();
+  
+  driverDataRelSaida := DDT.ExcelDriver(Project.Path + '\DataPool\Fiscal3c\Relatorios\Livro de Saidas\RelSaidas.xls', 'RelSaidas');
+  
+  while (not driverDataRelSaida.EOF) do
+  begin
+    LeDataPoolRelSaidas(driverDataRelSaida.Name);
+
+    escolheEstabAntigo('Fiscal3c', RelSaidaDPSelecao, RelSaidaDPEstabEmp, RelSaidaSelEstab);
+  
+    PreencheInfomacoesSaida();
+  
+    RelSaidaBtnExcel.Click;
+  
+    Delay(1000);
+    
+    //Verificacao
+    Log.AppendFolder('Verificação dos valores');
+    VerificaGridDbTable( DBTables.VerificacaoRelatorioSaida,
+                          RelSaidaGrid, 
+                          Aliases.Fiscal3c.FRelDocSaidas.cxPage.TsDados.cxGridDados.ActiveView.Controller.GridView.ViewData.DataController.DataSet,
+                          'ESTAB,SAIDA,NUMDOC,IDOPER,CST,VALCONT,BASCALC,'+ 
+                          'ALIQUOTA,VALIMP,ISENTAS,OUTRAS,BASEST,ALIQST,ICMSST,'+ 
+                          'BASCALCIP,ALIQIPI,VALIMPIP,ISENTASIP,OUTRASIP',
+                          'ESTAB;EMISSAO;ESPECIE;NUMDOC;IDOPER;CST;VALCONT');
+    Log.PopLogFolder();
+    
+    driverDataRelSaida.Next();
+  end;
+  DDT.CloseDriver(driverDataRelSaida.Name);
+  RelSaidaBtnSair.Click;
+end;
+
+procedure teste ();
+begin
+  ExecutaRelSaidas(project.Path + '\DataPool\Fiscal3c\Relatorios\Livro de Saidas\RelSaidas.xls','RelSaidas');
+end;
